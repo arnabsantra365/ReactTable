@@ -1,9 +1,10 @@
 import { createColumnHelper } from "@tanstack/react-table";
 const columnHelper = createColumnHelper();
+import moment from 'moment';
 export const colDef=[
     columnHelper.accessor('id', {
         header: 'ID⬆⬇', //It gives the heading
-        cell: info => info.renderValue(), //it gives the values
+        cell: info => info.renderValue(), //it gives the values `fklah${logo}`
         // footer: info => info.column.id,
     }),
     columnHelper.accessor('name', {
@@ -23,12 +24,13 @@ export const colDef=[
     }),
     columnHelper.accessor('createdAt', {
         header: 'createdAt⬆⬇',
-        cell: info => info.renderValue(),
+        cell: ({ getValue }) => moment(new Date(getValue())).format('Do MMM YYYY, h:mm a'),
+        // footer: info => info.column.id,
         // footer: info => info.column.id,
     }),
     columnHelper.accessor('updatedAt', {
         header: 'updatedAt⬆⬇',
-        cell: info => info.renderValue(),
+        cell: ({ getValue }) => moment(new Date(getValue())).format('Do MMM YYYY, h:mm a'),
         // footer: info => info.column.id,
     }),
     columnHelper.accessor('price', {
