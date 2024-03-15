@@ -6,12 +6,15 @@ import {
   getCoreRowModel,
   useReactTable,
   getSortedRowModel,
+  getPaginationRowModel,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 import { colDef } from "./Columns";
 import dataFetch from "../asset/data.json";
 
 const baseTable = () => {
   const [sorting, setSorting] = useState([]);
+  const[isfilter,setisFilter]=useState('');
   const finalData = React.useMemo(() => dataFetch, []);
   const finalColumnDef = React.useMemo(() => colDef, []); //useMemo is a hook which reduces repetetive calculations, 
   //if the state has not changed we don't need to calculate and return the old calculations
@@ -20,14 +23,19 @@ const baseTable = () => {
     columns: finalColumnDef,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
+      globalFilter:isfilter,
     },
     onSortingChange: setSorting,
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setisFilter,
   });
   return (
-    <div className="p-2">
-      <table>
+    <div className="w3-container">
+      <input type="text" value={isfilter} onChange={(e)=>setisFilter(e.target.value)}/>
+      <table className="w3-table-all w3-card-4 w3-hoverable">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => {
             return (
@@ -38,16 +46,22 @@ const baseTable = () => {
                     onClick={header.column.getToggleSortingHandler()}>
                       {header.isPlaceholder
                         ? null
-                        : flexRender(
-                            header.column.columnDef.header,//.colum.columDef is the syntax
-                            header.getContext()
-                            
-                          )}
-                           {
+                        : <div>
+                          {
+                            flexRender(
+                              header.column.columnDef.header,//.colum.columDef is the syntax
+                              header.getContext()
+                              
+                            )
+                          }
+                          {
                         { asc: "", desc: "" }[
                           header.column.getIsSorted() ?? null
                         ]
                       }
+                        </div>
+                        }
+                           
                     </th>
                   );
                 })}
