@@ -1,3 +1,9 @@
+
+//This commponent could be used when writing Vanilla MRT UI using Tanstack
+
+
+
+
 import React from "react";
 import {
     MRT_GlobalFilterTextField,
@@ -56,7 +62,7 @@ const Filter=(prop)=>{
             <MRT_GlobalFilterTextField table={table} />
             <MRT_TablePagination table={table} />
           </Box>
-          {/* Using Vanilla Material-UI Table components here */}
+          {/* Used Vanilla Material-UI Table components here */}
           <TableContainer>
             <Table>
               {/* Use your own markup, customize however you want using the power of TanStack Table */}

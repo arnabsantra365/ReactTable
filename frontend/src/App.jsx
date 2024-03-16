@@ -5,7 +5,7 @@ import './App.css'
 import Tables from './components/Tables'
 import Filter from './components/Filter'
 import Tabular from './components/Tabular'
-import Grouping from './components/Grouping'
+// import Grouping from './components/Grouping'
 function App() {
   // const[data,setData]=useState([]);
   // const[error,setError]=useState([""]);
