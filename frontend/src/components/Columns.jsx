@@ -3,44 +3,74 @@ const columnHelper = createColumnHelper();
 import moment from 'moment';
 export const colDef=[
     columnHelper.accessor('id', {
-        header: 'ID⬆⬇', //It gives the heading
+        header: 'ID', //It gives the heading
         cell: info => info.renderValue(), //it gives the values `fklah${logo}`
         // footer: info => info.column.id,
     }),
     columnHelper.accessor('name', {
-        header: 'Name⬆⬇',
+        header: 'Name',
         cell: info => info.renderValue(),
         // footer: info => info.column.id,
     }),
     columnHelper.accessor('category', {
-        header: 'Category⬆⬇',
+        accessorKey:'category',
+        header: 'Category',
         cell: info => info.renderValue(),
         // footer: info => info.column.id,
+        filterVariant: 'multi-select',
     }),
     columnHelper.accessor('subcategory', {
-        header: 'Subcategory⬆⬇',
+        accessorKey:'subcategory',
+        header: 'Subcategory',
         cell: info => info.renderValue(),
         // footer: info => info.column.id,
+        filterVariant: 'multi-select',
     }),
     columnHelper.accessor('createdAt', {
-        header: 'createdAt⬆⬇',
-        cell: ({ getValue }) => moment(new Date(getValue())).format('Do MMM YYYY, h:mm a'),
-        // footer: info => info.column.id,
-        // footer: info => info.column.id,
+        header: 'createdAt',
+        Cell: ({ cell }) => moment(new Date(cell.getValue())).format('Do MMM YYYY, h:mm a'),
+        // accessorFn: (originalRow) => new Date(originalRow.createdAt),
+        // filterVariant: 'time-range',
+        // Cell: ({ cell }) => cell.getValue().toLocaleTimeString(),
+
+        
     }),
     columnHelper.accessor('updatedAt', {
-        header: 'updatedAt⬆⬇',
-        cell: ({ getValue }) => moment(new Date(getValue())).format('Do MMM YYYY, h:mm a'),
+        header: 'updatedAt',
+        Cell: ({ cell }) => moment(new Date(cell.getValue())).format('Do MMM YYYY, h:mm a'),
         // footer: info => info.column.id,
     }),
     columnHelper.accessor('price', {
-        header: 'price⬆⬇',
-        cell: info => info.renderValue(),
+        header: 'price',
+        // cell: info => info.renderValue(),
         // footer: info => info.column.id,
+        Cell: ({ cell }) =>
+          cell.getValue().toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'INR',
+          }),
+          filterVariant: 'range-slider',
+          filterFn: 'betweenInclusive', // default (or between)
+        muiFilterSliderProps: {
+          marks: true,
+          step: 1,
+          valueLabelFormat: (value) =>
+            value.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'INR',
+            }),
+        },
+        
     }),
     columnHelper.accessor('sale_price', {
-        header: 'sale_price⬆⬇',
-        cell: info => info.renderValue(),
-        // footer: info => info.column.id,
+        header: 'sale_price',
+        // cell: info => info.renderValue(),
+        // Cell: ({ cell }) =>
+        // cell.getValue().toLocaleString('en-US', {
+        //   style: 'currency',
+        //   currency: 'INR',
+        // }
+        // ),
+ 
     }),
   ];

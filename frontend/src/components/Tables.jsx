@@ -11,6 +11,8 @@ import {
 } from "@tanstack/react-table";
 import { colDef } from "./Columns";
 import dataFetch from "../asset/data.json";
+import Filter from "./Filter";
+import Tabular from "./Tabular";
 
 const baseTable = () => {
   const [sorting, setSorting] = useState([]);
@@ -18,6 +20,8 @@ const baseTable = () => {
   const finalData = React.useMemo(() => dataFetch, []);
   const finalColumnDef = React.useMemo(() => colDef, []); //useMemo is a hook which reduces repetetive calculations, 
   //if the state has not changed we don't need to calculate and return the old calculations
+  console.log('test1',finalData);
+  console.log('test2',finalColumnDef);
   const table = useReactTable({
     data:finalData,
     columns: finalColumnDef,
@@ -82,7 +86,10 @@ const baseTable = () => {
           ))}
         </tbody>
       </table>
+      {/* <Filter col={finalColumnDef} dat={finalData}/>
+      <Tabular col={finalColumnDef} dat={finalData}/> */}
     </div>
+
   );
 };
 export default baseTable;

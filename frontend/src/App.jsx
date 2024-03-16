@@ -1,7 +1,11 @@
+import React from 'react'
 import { useState ,useEffect} from 'react'
 // import axios from 'axios';
 import './App.css'
 import Tables from './components/Tables'
+import Filter from './components/Filter'
+import Tabular from './components/Tabular'
+import Grouping from './components/Grouping'
 function App() {
   // const[data,setData]=useState([]);
   // const[error,setError]=useState([""]);
@@ -34,7 +38,8 @@ function App() {
       </div> */}
 
       <div>
-        <Tables/>
+      <Tabular/>
+      {/* <Grouping/> */}
       </div>
     </>
   )
